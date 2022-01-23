@@ -2,7 +2,6 @@
 
 import random
 
-
 print("*" * 10)
 print("Bem vindo ao jogo de Adivinhação!")
 print("*" * 10)
