@@ -1,9 +1,9 @@
 # Exercício de jogo da forca - Alura
 
 def jogar():
-    print("*" * 30)
+    print("*" * 27)
     print("Bem vindo ao jogo da Forca!")
-    print("*" * 30)
+    print("*" * 27)
 
     palavra_secreta = "banana"
     letras_acertadas = ["_" for letra in palavra_secreta]
@@ -26,7 +26,6 @@ def jogar():
             for letra in palavra_secreta:
                 if chute.upper() == letra.upper():
                     letras_acertadas[index] = chute
-                    #print(f"Encontrei a letra '{chute}' na posição {index+1}")
                 index += 1
         else:
             erros += 1
