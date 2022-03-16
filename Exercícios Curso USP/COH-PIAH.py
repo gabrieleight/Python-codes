@@ -1,5 +1,7 @@
 import re
 
+##### Funções fornecidas pelo problema #####
+
 def le_assinatura():
     '''A funcao le os valores dos tracos linguisticos do modelo e devolve uma assinatura a ser comparada com os textos fornecidos'''
     print("Bem-vindo ao detector automático de COH-PIAH.")
@@ -71,12 +73,75 @@ def n_palavras_diferentes(lista_palavras):
 
 def compara_assinatura(as_a, as_b):
     '''IMPLEMENTAR. Essa funcao recebe duas assinaturas de texto e deve devolver o grau de similaridade nas assinaturas.'''
-    pass
+    grau_similaridade = 0
+    for i in range(len(as_a)):
+        grau_similaridade += abs(as_a[i] - as_b[i])
+    grau_similaridade /= 6
+    return grau_similaridade
 
 def calcula_assinatura(texto):
     '''IMPLEMENTAR. Essa funcao recebe um texto e deve devolver a assinatura do texto.'''
-    pass
+    sentencas = separa_sentencas(texto)
+    frases = []
+    palavras = []
+    meia_palavras = 0
+    meio_sentencas = 0
+    comp_sentenca = 0
+    rel_type_token = 0
+    hapax = 0
+    soma_car_sentenca = 0
+    soma_pal = 0
+    soma_car_frase = 0
+    tam_meio_frase = 0
+
+    for sentenca in sentencas:      
+        soma_car_sentenca = soma_car_sentenca + len(sentenca)        
+        l_frases = separa_frases(sentenca)
+
+        for f in l_frases:
+            frases.append(f)
+
+    for frase in frases:
+        soma_car_frase = soma_car_frase + len(frase)
+        l_pal = separa_palavras(frase)
+
+        for palavra in l_pal:
+            palavras.append(palavra)    
+    
+    for palavra in palavras:
+        soma_pal = soma_pal + len(palavra)
+    
+    meia_palavras = soma_pal/len(palavras)
+    rel_type_token = n_palavras_diferentes(palavras)/len(palavras)
+    hapax = n_palavras_unicas(palavras)/len(palavras)
+    meio_sentencas = soma_car_sentenca / len(sentencas)
+    comp_sentenca = len(frases) / len(sentencas)
+    tam_meio_frase = soma_car_frase / len(frases)
+
+    return [meia_palavras, rel_type_token, hapax, meio_sentencas, comp_sentenca, tam_meio_frase]
 
 def avalia_textos(textos, ass_cp):
     '''IMPLEMENTAR. Essa funcao recebe uma lista de textos e uma assinatura ass_cp e deve devolver o numero (1 a n) do texto com maior probabilidade de ter sido infectado por COH-PIAH.'''
-    pass
+    
+    inf = []
+    
+    for texto in textos:
+        ass_texto = calcula_assinatura(texto)
+        inf.append(compara_assinatura(ass_texto, ass_cp))
+
+    menor = inf[0]
+    c = 1
+
+    for i in range(1, len(inf)):
+        if (menor > inf[i]):
+            c = i
+    return c
+
+
+def main():        
+    assinatura = le_assinatura()
+    textos = le_textos()
+    c = avalia_textos(textos, assinatura)
+    print("O autor do texto {} está infectado com COH-PIAH".format(c))
+          
+main()
