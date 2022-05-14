@@ -12,18 +12,27 @@ def ConverteMorse(string):
     stringMorse = IdentificaMorse(string)
     
     elementosSimbolos = simbolos.items()
+    stringConvertida = ''
     
     if stringMorse == False:
-        stringConvertida = ''
         for letra in string:
             for i in elementosSimbolos:
                 if letra == i[0]:
                     stringConvertida += simbolos[letra] + ' '
                 
     else:
-        stringConvertida = ''
-        for simbolo in string:
-            pass
+        string += ' '
+        stringNaoConvertida = ''
+        for caractere in string:
+            stringNaoConvertida += caractere
+            if caractere == ' ':
+                stringNaoConvertida = stringNaoConvertida[: -1]
+                for i in elementosSimbolos:
+                    if i[1] == stringNaoConvertida:
+                        stringConvertida += i[0]
+                stringNaoConvertida = ''
+                continue
+            
     
     return stringConvertida
 
