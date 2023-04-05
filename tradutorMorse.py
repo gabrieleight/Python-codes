@@ -49,4 +49,4 @@ if __name__ == "__main__":
     stringMorse = ConverteMorse(string)
     print(stringMorse)
     print()
-    print('*' * 14,'Obrigado!', '*' * 14)
+    print('*' * 14,'Thank you!', '*' * 14)
