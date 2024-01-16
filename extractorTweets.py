@@ -3,7 +3,7 @@ import pandas as pd
 from datetime import datetime
 
 def get_client(bearer_token):
-    # Autenticar no Twitter
+    # Autenticar na API do Twitter
     client = tweepy.Client(bearer_token)
     return client
 
